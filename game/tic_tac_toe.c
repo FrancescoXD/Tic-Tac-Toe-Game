@@ -6,28 +6,29 @@ int currentPlayer = 1;
 enum Status gameStatus = CONTINUE;
 
 void showGameTable();
-void askPlayerPosition(char *position, char *symbol, int *emptySlot);
-void checkGameStatus();
+void askPlayerPosition(char *position, char *symbol);
+void checkGameStatus(int *emptySlot);
 
 char table[] = {' ', ' ', ' ',
                 ' ', ' ', ' ',
                 ' ', ' ', ' '};
+int emptySlot = 8;
 
 int main() {
     char position, symbol;
-    int emptySlot = 8;
 
     printf("%s", "TIC TAC TOE GAME\n\n");
 
     do {
         showGameTable();
-        askPlayerPosition(&position, &symbol, &emptySlot);
+        askPlayerPosition(&position, &symbol);
+        while(getchar() != '\n');
     } while (gameStatus == CONTINUE);
     
     showGameTable();
 }
 
-void askPlayerPosition(char *position, char *symbol, int *emptySlot) {
+void askPlayerPosition(char *position, char *symbol) {
     if (currentPlayer % 2 == 1) {
         *symbol = 'X';
         printf("%s", "Player 1: ");
@@ -114,7 +115,7 @@ void checkGameStatus(int *emptySlot) {
     } else if (table[2] == 'O' && table[4] == 'O' && table[6] == 'O') {
         puts("Player 2 wins!");
         gameStatus = FINISHED;
-    } else if (emptySlot == 0) {
+    } else if (*emptySlot == 0) {
         puts("And the winner is... nobody!");
         gameStatus = FINISHED;
     }
