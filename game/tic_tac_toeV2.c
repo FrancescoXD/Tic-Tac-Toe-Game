@@ -1,10 +1,13 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 void startGame(char player1, char player2);
 int gameFinished(char board[9], char *winner, char playerTurn);
 void showBoard(char board[9]);
 int pickPosition(char player, char board[9]);
 int isValidPosition(char board[9], int position);
+char selectPlayer(char player1, char player2);
 
 int main() {
     char player1, player2;
@@ -25,7 +28,8 @@ int main() {
 
 void startGame(char player1, char player2) {
     char board[9] = {0};
-    char playerTurn = player1;
+    int emptySlot = 9;
+    char playerTurn = selectPlayer(player1, player2);
     char winner = 0;
 
     while (!gameFinished(board, &winner, playerTurn)) {
@@ -37,9 +41,18 @@ void startGame(char player1, char player2) {
         showBoard(board);
         int position = pickPosition(playerTurn, board);
         board[position] = playerTurn;
+        emptySlot--;
     }
     showBoard(board);
     printf("%s%c\n", "The winner is: ", winner);
+}
+
+char selectPlayer(char player1, char player2) {
+    srand(time(NULL));
+    int random = rand();
+    if (random % 2) return player1;
+
+    return player2;
 }
 
 int gameFinished(char board[9], char *winner, char playerTurn) {
