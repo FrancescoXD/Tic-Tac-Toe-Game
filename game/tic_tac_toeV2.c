@@ -3,7 +3,7 @@
 #include <time.h>
 
 void startGame(char player1, char player2);
-int gameFinished(char board[9], char *winner, char playerTurn);
+int gameFinished(char board[9], char *winner, char playerTurn, int *emptySlot);
 void showBoard(char board[9]);
 int pickPosition(char player, char board[9]);
 int isValidPosition(char board[9], int position);
@@ -32,7 +32,7 @@ void startGame(char player1, char player2) {
     char playerTurn = selectPlayer(player1, player2);
     char winner = 0;
 
-    while (!gameFinished(board, &winner, playerTurn)) {
+    while (!gameFinished(board, &winner, playerTurn, &emptySlot)) {
         if (playerTurn == player1) {
             playerTurn = player2;
         } else {
@@ -44,7 +44,11 @@ void startGame(char player1, char player2) {
         emptySlot--;
     }
     showBoard(board);
-    printf("%s%c\n", "The winner is: ", winner);
+    if (winner != 0) {
+        printf("%s%c\n", "The winner is: ", winner);
+    } else {
+        printf("%s", "And the winner is... nobody!\n");
+    }
 }
 
 char selectPlayer(char player1, char player2) {
@@ -55,7 +59,7 @@ char selectPlayer(char player1, char player2) {
     return player2;
 }
 
-int gameFinished(char board[9], char *winner, char playerTurn) {
+int gameFinished(char board[9], char *winner, char playerTurn, int *emptySlot) {
     if (board[0] == playerTurn && board[1] == playerTurn && board[2] == playerTurn) {
         *winner = playerTurn;
         return 1;
@@ -73,6 +77,8 @@ int gameFinished(char board[9], char *winner, char playerTurn) {
         *winner = playerTurn;
     } else if (board[2] == playerTurn && board[4] == playerTurn && board[6] == playerTurn) {
         *winner = playerTurn;
+    } else if (*emptySlot == 0) {
+        *winner = 0;
     } else return 0;
 }
 
