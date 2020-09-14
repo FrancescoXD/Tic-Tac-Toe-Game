@@ -1,14 +1,21 @@
 #include <stdio.h>
 
 void startGame(char player1, char player2);
-int gameFinished(char board[9], char *winner);
+int gameFinished(char board[9], char *winner, char playerTurn);
 void showBoard(char board[9]);
 int pickPosition(char player, char board[9]);
 int isValidPosition(char board[9], int position);
 
 int main() {
-    char player1 = 'X';
-    char player2 = 'O';
+    char player1, player2;
+
+    printf("%s", "Player 1 symbol: ");
+    scanf("%c", &player1);
+    while (getchar() != '\n');
+
+    printf("%s", "Player 2 symbol: ");
+    scanf("%c", &player2);
+    while (getchar() != '\n');
 
     startGame(player1, player2);
 
@@ -16,14 +23,11 @@ int main() {
 }
 
 void startGame(char player1, char player2) {
-    char board[9];
-    for (size_t i = 0; i <= 9; ++i) {
-        board[i] = ' ';
-    }
+    char board[9] = {0};
     char playerTurn = player1;
     char winner = 0;
 
-    while (!gameFinished(board, &winner)) {
+    while (!gameFinished(board, &winner, playerTurn)) {
         showBoard(board);
         int position = pickPosition(playerTurn, board);
         board[position] = playerTurn;
@@ -37,40 +41,24 @@ void startGame(char player1, char player2) {
     printf("%s%c\n", "The winner is: ", winner);
 }
 
-int gameFinished(char board[9], char *winner) {
-    if (board[0] == 'X' && board[1] == 'X' && board[2] == 'X') {
-        *winner = 'X';
+int gameFinished(char board[9], char *winner, char playerTurn) {
+    if (board[0] == playerTurn && board[1] == playerTurn && board[2] == playerTurn) {
+        *winner = playerTurn;
         return 1;
-    } else if (board[3] == 'X' && board[4] == 'X' && board[5] == 'X') {
-        *winner = 'X';
-    } else if (board[6] == 'X' && board[7] == 'X' && board[8] == 'X') {
-        *winner = 'X';
-    } else if (board[0] == 'X' && board[3] == 'X' && board[6] == 'X') {
-        *winner = 'X';
-    } else if (board[1] == 'X' && board[4] == 'X' && board[7] == 'X') {
-        *winner = 'X';
-    } else if (board[2] == 'X' && board[5] == 'X' && board[8] == 'X') {
-        *winner = 'X';
-    } else if (board[0] == 'X' && board[4] == 'X' && board[8] == 'X') {
-        *winner = 'X';
-    } else if (board[2] == 'X' && board[4] == 'X' && board[6] == 'X') {
-        *winner = 'X';
-    } else if (board[0] == 'O' && board[1] == 'O' && board[2] == 'O') {
-        *winner = 'O';
-    } else if (board[3] == 'O' && board[4] == 'O' && board[5] == 'O') {
-        *winner = 'O';
-    } else if (board[6] == 'O' && board[7] == 'O' && board[8] == 'O') {
-        *winner = 'O';
-    } else if (board[0] == 'O' && board[3] == 'O' && board[6] == 'O') {
-        *winner = 'O';
-    } else if (board[1] == 'O' && board[4] == 'O' && board[7] == 'O') {
-        *winner = 'O';
-    } else if (board[2] == 'O' && board[5] == 'O' && board[8] == 'O') {
-        *winner = 'O';
-    } else if (board[0] == 'O' && board[4] == 'O' && board[8] == 'O') {
-        *winner = 'O';
-    } else if (board[2] == 'O' && board[4] == 'O' && board[6] == 'O') {
-        *winner = 'O';
+    } else if (board[3] == playerTurn && board[4] == playerTurn && board[5] == playerTurn) {
+        *winner = playerTurn;
+    } else if (board[6] == playerTurn && board[7] == playerTurn && board[8] == playerTurn) {
+        *winner = playerTurn;
+    } else if (board[0] == playerTurn && board[3] == playerTurn && board[6] == playerTurn) {
+        *winner = playerTurn;
+    } else if (board[1] == playerTurn && board[4] == playerTurn && board[7] == playerTurn) {
+        *winner = playerTurn;
+    } else if (board[2] == playerTurn && board[5] == playerTurn && board[8] == playerTurn) {
+        *winner = playerTurn;
+    } else if (board[0] == playerTurn && board[4] == playerTurn && board[8] == playerTurn) {
+        *winner = playerTurn;
+    } else if (board[2] == playerTurn && board[4] == playerTurn && board[6] == playerTurn) {
+        *winner = playerTurn;
     } else return 0;
 }
 
@@ -92,7 +80,7 @@ int pickPosition(char player, char board[9]) {
 }
 
 int isValidPosition(char board[9], int position) {
-    if (board[position] == ' ') return 1;
+    if (board[position] == 0) return 1;
 
     return 0;
 }
