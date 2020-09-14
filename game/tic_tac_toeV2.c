@@ -8,6 +8,7 @@ int isValidPosition(char board[9], int position);
 
 int main() {
     char player1, player2;
+    puts("Tic Tac Toe Game");
 
     printf("%s", "Player 1 symbol: ");
     scanf("%c", &player1);
@@ -28,14 +29,14 @@ void startGame(char player1, char player2) {
     char winner = 0;
 
     while (!gameFinished(board, &winner, playerTurn)) {
-        showBoard(board);
-        int position = pickPosition(playerTurn, board);
-        board[position] = playerTurn;
         if (playerTurn == player1) {
             playerTurn = player2;
         } else {
             playerTurn = player1;
         }
+        showBoard(board);
+        int position = pickPosition(playerTurn, board);
+        board[position] = playerTurn;
     }
     showBoard(board);
     printf("%s%c\n", "The winner is: ", winner);
@@ -76,7 +77,7 @@ int pickPosition(char player, char board[9]) {
         scanf("%d", &position);
     }
 
-    return position-1;
+    return position - 1;
 }
 
 int isValidPosition(char board[9], int position) {
