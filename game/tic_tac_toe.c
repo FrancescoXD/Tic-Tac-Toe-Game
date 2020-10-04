@@ -24,7 +24,7 @@ int main() {
         askPlayerPosition(&position, &symbol);
         while(getchar() != '\n');
     } while (gameStatus == CONTINUE);
-    
+
     showGameTable();
 }
 
@@ -53,7 +53,7 @@ void askPlayerPosition(char *position, char *symbol) {
 
 void showGameTable() {
     unsigned int cont = 0;
-    
+
     printf("%4c%4c%4c\n%4c%4c%4c\n%4c%4c%4c\n\n", 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i');
 
     for (size_t i = 0; i < TABLE_SIZE; ++i) {
@@ -67,52 +67,28 @@ void showGameTable() {
 }
 
 void checkGameStatus(int *emptySlot) {
-    if (table[0] == 'X' && table[1] == 'X' && table[2] == 'X') {
+    if (
+            table[0] == 'X' && table[1] == 'X' && table[2] == 'X'
+            || table[3] == 'X' && table[4] == 'X' && table[5] == 'X'
+            || table[6] == 'X' && table[7] == 'X' && table[8] == 'X'
+            || table[0] == 'X' && table[3] == 'X' && table[6] == 'X'
+            || table[1] == 'X' && table[4] == 'X' && table[7] == 'X'
+            || table[2] == 'X' && table[5] == 'X' && table[8] == 'X'
+            || table[0] == 'X' && table[4] == 'X' && table[8] == 'X'
+            || table[2] == 'X' && table[4] == 'X' && table[6] == 'X'
+            ) {
         puts("Player 1 wins!");
         gameStatus = FINISHED;
-    } else if (table[3] == 'X' && table[4] == 'X' && table[5] == 'X') {
-        puts("Player 1 wins!");
-        gameStatus = FINISHED;
-    } else if (table[6] == 'X' && table[7] == 'X' && table[8] == 'X') {
-        puts("Player 1 wins!");
-        gameStatus = FINISHED;
-    } else if (table[0] == 'X' && table[3] == 'X' && table[6] == 'X') {
-        puts("Player 1 wins!");
-        gameStatus = FINISHED;
-    } else if (table[1] == 'X' && table[4] == 'X' && table[7] == 'X') {
-        puts("Player 1 wins!");
-        gameStatus = FINISHED;
-    } else if (table[2] == 'X' && table[5] == 'X' && table[8] == 'X') {
-        puts("Player 1 wins!");
-        gameStatus = FINISHED;
-    } else if (table[0] == 'X' && table[4] == 'X' && table[8] == 'X') {
-        puts("Player 1 wins!");
-        gameStatus = FINISHED;
-    } else if (table[2] == 'X' && table[4] == 'X' && table[6] == 'X') {
-        puts("Player 1 wins!");
-        gameStatus = FINISHED;
-    } else if (table[0] == 'O' && table[1] == 'O' && table[2] == 'O') {
-        puts("Player 2 wins!");
-        gameStatus = FINISHED;
-    } else if (table[3] == 'O' && table[4] == 'O' && table[5] == 'O') {
-        puts("Player 2 wins!");
-        gameStatus = FINISHED;
-    } else if (table[6] == 'O' && table[7] == 'O' && table[8] == 'O') {
-        puts("Player 2 wins!");
-        gameStatus = FINISHED;
-    } else if (table[0] == 'O' && table[3] == 'O' && table[6] == 'O') {
-        puts("Player 2 wins!");
-        gameStatus = FINISHED;
-    } else if (table[1] == 'O' && table[4] == 'O' && table[7] == 'O') {
-        puts("Player 2 wins!");
-        gameStatus = FINISHED;
-    } else if (table[2] == 'O' && table[5] == 'O' && table[8] == 'O') {
-        puts("Player 2 wins!");
-        gameStatus = FINISHED;
-    } else if (table[0] == 'O' && table[4] == 'O' && table[8] == 'O') {
-        puts("Player 2 wins!");
-        gameStatus = FINISHED;
-    } else if (table[2] == 'O' && table[4] == 'O' && table[6] == 'O') {
+    } else if (
+            table[0] == 'O' && table[1] == 'O' && table[2] == 'O'
+            || table[3] == 'O' && table[4] == 'O' && table[5] == 'O'
+            || table[6] == 'O' && table[7] == 'O' && table[8] == 'O'
+            || table[0] == 'O' && table[3] == 'O' && table[6] == 'O'
+            || table[1] == 'O' && table[4] == 'O' && table[7] == 'O'
+            || table[2] == 'O' && table[5] == 'O' && table[8] == 'O'
+            || table[0] == 'O' && table[4] == 'O' && table[8] == 'O'
+            || table[2] == 'O' && table[4] == 'O' && table[6] == 'O'
+            ) {
         puts("Player 2 wins!");
         gameStatus = FINISHED;
     } else if (*emptySlot == 0) {
